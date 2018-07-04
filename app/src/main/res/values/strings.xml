@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Samachar24</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect</item>
+        <item>Fixtures</item>
+        <item>Table</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_news">All News</string>
+    <string name="send_to">send to</string>
+
+
+    <!-- AdMob ad unit IDs -->
+    <string name="admob_app_id">ca-app-pub-3348284537604453~4199065277</string>
+    <string name="banner_home_footer">ca-app-pub-3348284537604453/7563595215</string>
+    <string name="image_of_feeds">image of feeds</string>
+    <string name="image_loading">Image loading </string>
+</resources>
