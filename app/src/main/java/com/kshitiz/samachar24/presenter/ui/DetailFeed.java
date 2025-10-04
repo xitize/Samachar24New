@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -101,7 +102,7 @@ public class DetailFeed extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") DateFormat d1 = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
         @SuppressLint("SimpleDateFormat") DateFormat d2 = new SimpleDateFormat("dd MMM yyyy");
         try {
-            date.setText(d2.format(d1.parse(entry.getPubDate())));
+            date.setText(d2.format(Objects.requireNonNull(d1.parse(entry.getPubDate()))));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -126,25 +127,23 @@ public class DetailFeed extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_detail_share:
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, entry.getTitle());
-                shareIntent.putExtra(Intent.EXTRA_TEXT, entry.getLink());
-                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-                return true;
-
-            case R.id.menu_detail_open_in_web:
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(entry.getLink())); // only used based on your example.
-                Intent chooser = Intent.createChooser(intent, "Select a browse");
+        if (item.getItemId() == R.id.menu_detail_share) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, entry.getTitle());
+            shareIntent.putExtra(Intent.EXTRA_TEXT, entry.getLink());
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+            return true;
+        } else if (item.getItemId() == R.id.menu_detail_open_in_web) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(entry.getLink()));
+            Intent chooser = Intent.createChooser(intent, "Select a browse");
 // Verify the original intent will resolve to at least one activity
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(chooser);
-                }
-                return true;
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(chooser);
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

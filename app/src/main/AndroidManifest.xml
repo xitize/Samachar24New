@@ -12,13 +12,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".presenter.ui.MainActivity">
+        <activity
+            android:name=".presenter.ui.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presenter.ui.DetailFeed" />
+        <activity
+            android:name=".presenter.ui.DetailFeed"
+            android:exported="true" />
     </application>
 </manifest>

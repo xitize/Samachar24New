@@ -4,10 +4,11 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.text.Html;
 import android.util.Log;
 
+
+import androidx.annotation.NonNull;
 
 import com.kshitiz.samachar24.model.ItemItem;
 
@@ -87,20 +88,17 @@ public class Parser {
 
     private static List<ItemItem> sortByTime(List<ItemItem> entries) {
 
-        Collections.sort(entries, new Comparator<ItemItem>() {
-            @Override
-            public int compare(@NonNull ItemItem entry, ItemItem t1) {
-                long d1 = 0;
-                long d2 = 0;
-                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
-                try {
-                    d1 = formatter.parse(entry.getPubDate()).getTime();
-                    d2 = formatter.parse(t1.getPubDate()).getTime();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                return (d1 > d2) ? -1 : 1;
+        Collections.sort(entries, (entry, t1) -> {
+            long d1 = 0;
+            long d2 = 0;
+            @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+            try {
+                d1 = formatter.parse(entry.getPubDate()).getTime();
+                d2 = formatter.parse(t1.getPubDate()).getTime();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+            return (d1 > d2) ? -1 : 1;
         });
         return entries;
     }

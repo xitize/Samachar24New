@@ -1,20 +1,21 @@
 package com.kshitiz.samachar24.presenter.ui;
 
 
+import static io.paperdb.Paper.book;
+
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.kshitiz.samachar24.FeedsUrl;
 import com.kshitiz.samachar24.R;
@@ -41,8 +42,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static io.paperdb.Paper.book;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +53,6 @@ public class EnglishFeedFrag extends Fragment {
     private final ArrayList<String> rss = FeedsUrl.getEnglishFeedsUrl();
     static final String TAG = MainActivity.class.getSimpleName();
     List<ItemItem> tempItems = new ArrayList<>();
-    AdView adView;
 
 
     public EnglishFeedFrag() {
@@ -82,23 +80,15 @@ public class EnglishFeedFrag extends Fragment {
             pullFromOffline();
         } else {
             //first run
-            swipeRefreshLayout.post(new Runnable() {
-
-                public void run() {
-                    fetchFeeds();
-                }
-            });
+            swipeRefreshLayout.post(this::fetchFeeds);
         }
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (CheckInternet.isNetworkAvailable(getActivity()))
-                    fetchFeeds();
-                else {
-                    pullFromOffline();
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (CheckInternet.isNetworkAvailable(getActivity()))
+                fetchFeeds();
+            else {
+                pullFromOffline();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -108,7 +98,7 @@ public class EnglishFeedFrag extends Fragment {
 
 
     private void pullFromOffline() {
-        tempItems.addAll((Collection<? extends ItemItem>) book().read("CACHE_OFFLINE_FEED_ENGLISH"));
+        tempItems.addAll(book().read("CACHE_OFFLINE_FEED_ENGLISH"));
         cvAdapter.notifyDataSetChanged();
     }
 
@@ -116,46 +106,41 @@ public class EnglishFeedFrag extends Fragment {
         final OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.dispatcher().setMaxRequests(1);
         swipeRefreshLayout.setRefreshing(true);
-        Observable<List<ItemItem>> myObservable = Observable.create(new ObservableOnSubscribe<List<ItemItem>>() {
+        Observable<List<ItemItem>> myObservable = Observable.create(emitter -> {
+            final List<ItemItem> tempList = new ArrayList<>();
+            for (int i = 0; i < rss.size(); i++) {
+                Request request = new Request.Builder().url(rss.get(i))
+                        .build();
 
+                final int finalI = i;
+                okHttpClient.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                       /* emitter.onNext(Parser.polishFeed(tempList));  //single all List<Item>
+                        emitter.onComplete();*/
+                    }
 
-            @Override
-            public void subscribe(final ObservableEmitter<List<ItemItem>> emitter) {
-                final List<ItemItem> tempList = new ArrayList<>();
-                for (int i = 0; i < rss.size(); i++) {
-                    Request request = new Request.Builder().url(rss.get(i))
-                            .build();
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        Log.d("TAG", "feeds pulled is " + finalI);
+                        Gson gson = new Gson();
+                        assert response.body() != null;
+                        ResponseFeed responseFeed = gson.fromJson(response.body().string(), ResponseFeed.class);
+                        if (responseFeed.getQuery().getResults() != null)
+                            tempList.addAll(responseFeed.getQuery().getResults().getRss().getChannel().getItem());
 
-                    final int finalI = i;
-                    okHttpClient.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                           /* emitter.onNext(Parser.polishFeed(tempList));  //single all List<Item>
-                            emitter.onComplete();*/
+                        Log.d(TAG, "Feeds in a url  number  " + finalI + " is " + responseFeed.getQuery().getResults().getRss().getChannel().getItem().size());
+
+                        /*check the condition if disconnects in middle of downloading*/
+                        if (finalI == rss.size() - 1) {
+                            emitter.onNext(Parser.polishFeedWithEnglish(tempList));  //single all List<Item>
+                            emitter.onComplete();
                         }
-
-                        @Override
-                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                            Log.d("TAG", "feeds pulled is " + finalI);
-                            Gson gson = new Gson();
-                            assert response.body() != null;
-                            ResponseFeed responseFeed = gson.fromJson(response.body().string(), ResponseFeed.class);
-                            if (responseFeed.getQuery().getResults() != null)
-                                tempList.addAll(responseFeed.getQuery().getResults().getRss().getChannel().getItem());
-
-                           Log.d(TAG, "Feeds in a url  number  " + finalI + " is " + responseFeed.getQuery().getResults().getRss().getChannel().getItem().size());
-
-                            /*check the condition if disconnects in middle of downloading*/
-                            if (finalI == rss.size() - 1) {
-                                emitter.onNext(Parser.polishFeedWithEnglish(tempList));  //single all List<Item>
-                                emitter.onComplete();
-                            }
-                        }
-                    });
-
-                }
+                    }
+                });
 
             }
+
         });
 
         myObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DisposableObserver<List<ItemItem>>() {
