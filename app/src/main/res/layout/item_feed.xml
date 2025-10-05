@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="0dp"
-    android:focusable="true">
+    app:cardCornerRadius="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,24 +17,21 @@
         android:layout_margin="14dp">
 
         <ImageView
-            android:src="@drawable/ic_img_placeholder"
-            android:contentDescription="@string/image_of_feeds"
             android:id="@+id/image_view"
             android:layout_width="110dp"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/image_of_feeds"
             android:cropToPadding="true"
-            android:scaleType="center"/>
+            android:scaleType="center"
+            android:src="@drawable/ic_img_placeholder" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/image_view"
             android:layout_toStartOf="@+id/image_view"
             android:gravity="center_vertical">
 
@@ -42,41 +39,36 @@
                 android:id="@+id/title"
                 style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="match_parent"
-                android:textColor="@color/primary_text"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginBottom="6dp"
                 android:text="Title"
+                android:textColor="@color/primary_text"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/source"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:text="Source"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp"
-                tools:ignore="HardcodedText,MissingPrefix,SmallSp" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
-                android:layout_marginLeft="8dp"
-                android:textColor="@color/secondary_text"
-
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/source"
-                android:layout_toRightOf="@+id/source"
                 android:text="date"
+                android:textColor="@color/secondary_text"
                 android:textSize="10sp"
                 tools:ignore="SmallSp" />
 
+            <TextView
+                android:id="@+id/source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/date"
+                android:text="Source"
+                android:textColor="@color/secondary_text"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText,MissingPrefix,SmallSp" />
 
         </RelativeLayout>
 

@@ -22,7 +22,7 @@
             android:background="@color/icons"
             android:clipToPadding="false"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item_card_view" />
+            tools:listitem="@layout/item_feed" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

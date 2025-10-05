@@ -7,11 +7,6 @@
         android:title="Nepali" />
 
     <item
-        android:id="@+id/navigation_english_feeds"
-        android:icon="@drawable/ic_news"
-        android:title="English" />
-
-    <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:title="Settings" />

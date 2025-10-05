@@ -15,14 +15,15 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:padding="6dp"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/icons"
             android:clipToPadding="false"
+            android:padding="6dp"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item_card_view" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_feed" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>
