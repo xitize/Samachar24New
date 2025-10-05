@@ -2,7 +2,7 @@ package com.kshitiz.samachar24.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kshitiz.samachar24.repository.NewsRepository
+import com.kshitiz.samachar24.data.repository.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn

@@ -10,7 +10,10 @@ import com.prof18.rssparser.model.RssItem
 @Entity(tableName = "news_items")
 @TypeConverters(RssItemConverter::class)
 data class NewsItem(
-    @PrimaryKey val id: String, val rssItem: RssItem? = null, val source: String? = null
+    @PrimaryKey val id: String,
+    val rssItem: RssItem? = null,
+    val source: String? = null,
+    val sourceImg: String? = null
 )
 
 object RssItemConverter {

@@ -14,7 +14,7 @@ interface NewsDao {
     fun getAllNewsItems(): Flow<List<NewsItem>>
 
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(newsItems: List<NewsItem>)
 
     @Query("DELETE FROM news_items")

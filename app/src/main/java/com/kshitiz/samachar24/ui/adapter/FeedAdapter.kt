@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kshitiz.samachar24.data.local.entity.NewsItem
 import com.kshitiz.samachar24.databinding.ItemFeedBinding
 import com.kshitiz.samachar24.util.DateTimeUtils
@@ -45,11 +46,15 @@ class FeedAdapter : ListAdapter<NewsItem, FeedAdapter.ViewHolder>(FeedDiffCallba
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NewsItem) {
             binding.apply {
-                val item = item.rssItem!!
-                title.text = item.title
-                source.text = item.sourceName
-                date.text = item.pubDate?.let { DateTimeUtils.getRelativeTime(it) } ?: ""
-                Glide.with(root.context).load(item.image).into(imageView)
+                val rssItem = item.rssItem!!
+                title.text = rssItem.title
+                source.text = item.source
+                date.text = rssItem.pubDate?.let { DateTimeUtils.getRelativeTime(it) } ?: ""
+                Glide.with(root.context)
+                    .load(rssItem.image)
+                    .error(Glide.with(root.context).load(item.sourceImg))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache the final image
+                    .into(imageView)
             }
         }
 

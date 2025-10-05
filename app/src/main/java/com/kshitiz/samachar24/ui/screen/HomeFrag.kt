@@ -24,8 +24,7 @@ class HomeFrag : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding.recyclerView.adapter = adapter
         return binding.root
@@ -37,9 +36,16 @@ class HomeFrag : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false
         }
+        binding.swipeRefreshLayout.isRefreshing = true
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            mainVM.refresh()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+
         lifecycleScope.launch {
             mainVM.articles.collectLatest {
                 adapter.submitList(it)
+                binding.swipeRefreshLayout.isRefreshing = false
             }
         }
 
