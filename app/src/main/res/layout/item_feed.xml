@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
+    style="@style/Widget.Material3.CardView.Filled"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
@@ -14,74 +15,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="14dp">
+        android:layout_marginStart="8dp">
 
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="110dp"
             android:layout_height="80dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/image_of_feeds"
             android:cropToPadding="true"
             android:scaleType="center"
             android:src="@drawable/ic_img_placeholder" />
 
-        <RelativeLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Source"
+            android:textAppearance="?textAppearanceTitleSmall"
+            android:textSize="11sp"
+            app:fontFamily="sans-serif-condensed"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/source"
+            android:layout_toEndOf="@id/source"
+            android:text="Date"
+            android:textAppearance="?textAppearanceTitleSmall"
+            android:textSize="11sp"
+            app:fontFamily="sans-serif-condensed"
+            tools:ignore="SmallSp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/image_view"
-            android:gravity="center_vertical">
+            android:layout_below="@+id/date"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/image_view"
+            android:ellipsize="end"
+            android:lines="3"
+            android:text="Title\ndfsdfsdf\ndfsdfsdf"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="6dp"
-                android:text="Title"
-                android:textColor="@color/primary_text"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:text="date"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/source"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/date"
-                android:text="Source"
-                android:textColor="@color/secondary_text"
-                android:textSize="10sp"
-                tools:ignore="HardcodedText,MissingPrefix,SmallSp" />
-
-        </RelativeLayout>
-
-
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_view"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp" />
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_below="@id/image_view"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="14dp"
-        android:background="@color/primary_light" />
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

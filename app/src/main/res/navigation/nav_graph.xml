@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/nav_feeds"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/nav_feeds"
+        android:name="com.kshitiz.samachar24.ui.screen.HomeFrag"
+        android:label="Home"
+        tools:layout="@layout/home_frag" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.kshitiz.samachar24.ui.screen.ProfileFrag"
+        android:label="Settings"
+        tools:layout="@layout/profile_frag" />
+
+</navigation>

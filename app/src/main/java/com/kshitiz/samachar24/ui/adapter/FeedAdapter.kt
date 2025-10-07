@@ -11,7 +11,10 @@ import com.kshitiz.samachar24.data.local.entity.NewsItem
 import com.kshitiz.samachar24.databinding.ItemFeedBinding
 import com.kshitiz.samachar24.util.DateTimeUtils
 
-class FeedAdapter : ListAdapter<NewsItem, FeedAdapter.ViewHolder>(FeedDiffCallback()) {
+class FeedAdapter(private val onItemClicked: (NewsItem) -> Unit) :
+    ListAdapter<NewsItem, FeedAdapter.ViewHolder>(FeedDiffCallback()) {
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -27,6 +30,9 @@ class FeedAdapter : ListAdapter<NewsItem, FeedAdapter.ViewHolder>(FeedDiffCallba
     ) {
         val item = getItem(position)
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            onItemClicked(item)
+        }
 
     }
 

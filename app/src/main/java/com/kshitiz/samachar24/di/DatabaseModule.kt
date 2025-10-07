@@ -25,6 +25,9 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDao(db: NewsDb) = db.newsDao()
+
+    @Provides
+    fun provideApplicationContext(@ApplicationContext appContext: Context) = appContext
 }
 
 

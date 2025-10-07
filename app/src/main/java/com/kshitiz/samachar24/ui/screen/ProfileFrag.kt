@@ -18,7 +18,7 @@ class ProfileFrag : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.profile_frag, container, false)
         val mSwitch = view.findViewById<Switch>(R.id.switcher)
         val share = view.findViewById<TextView>(R.id.text_share)
         val rate_us = view.findViewById<TextView>(R.id.text_rate_us)
