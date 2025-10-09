@@ -27,7 +27,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/image_of_feeds"
             android:cropToPadding="true"
-            android:scaleType="center"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_img_placeholder" />
 
         <com.google.android.material.textview.MaterialTextView
