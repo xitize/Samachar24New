@@ -51,7 +51,7 @@
             android:textAppearance="?textAppearanceTitleSmall"
             android:textSize="11sp"
             app:fontFamily="sans-serif-condensed"
-            tools:ignore="SmallSp" />
+            tools:ignore="HardcodedText,SmallSp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/title"

@@ -45,7 +45,8 @@
                 android:text="Author"
                 android:textAppearance="?textAppearanceCaption"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/date_detail"
@@ -55,7 +56,8 @@
                 android:text="Date"
                 android:textAppearance="?textAppearanceCaption"
                 app:layout_constraintBaseline_toBaselineOf="@id/authorTv"
-                app:layout_constraintStart_toEndOf="@id/authorTv" />
+                app:layout_constraintStart_toEndOf="@id/authorTv"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/category_chip_group"
