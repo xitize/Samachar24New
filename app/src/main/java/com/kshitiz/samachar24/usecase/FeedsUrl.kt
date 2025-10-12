@@ -1,7 +1,9 @@
 package com.kshitiz.samachar24.usecase
 
+import javax.annotation.concurrent.Immutable
 
-data class FeedItem(val name: String, val url: String, val image: String)
+@Immutable
+data class FeedItem(val name: String, val url: String, val image: String, val isEnabled: Boolean = true)
 
 object FeedsUrl {
     val nepaliFeeds = listOf(
@@ -12,14 +14,14 @@ object FeedsUrl {
 //        ),
         FeedItem(
             "Nagarik News",
-            "https://nagariknews.nagariknetwork.com/feed",
+            "https://nagariknetwork.com/feed/",
             "https://jscss.nagariknewscdn.com/images/nrm-new-logo.png?v=2025-10-05"
         ),
-//        FeedItem(
-//            "Rajdhani Daily",
-//            "https://rajdhanidaily.com/feed",
-//            "https://rajdhanidaily.com/wp-content/uploads/2022/04/rajdhani-author-small-120x120.png"
-//        ),
+        FeedItem(
+            "Rajdhani Daily",
+            "https://rajdhanidaily.com/feed",
+            "https://rajdhanidaily.com/wp-content/uploads/2022/04/rajdhani-author-small-120x120.png"
+        ),
         FeedItem(
             "News of Nepal",
             "https://newsofnepal.com/feed",
@@ -116,6 +118,48 @@ object FeedsUrl {
             "Icon Khabar",
             "https://iconkhabar.com/feed",
             "https://iconkhabar.com/wp-content/uploads/2022/12/cropped-iconkhabar-3.png"
+        ),
+        FeedItem(
+            "Abhiyan Daily",
+            "https://www.abhiyandaily.com/rss/",
+            "https://scontent.fbwa1-1.fna.fbcdn.net/v/t39.30808-6/305758041_451740456977957_3970610370243528066_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=BhFDt8frpAcQ7kNvwGBPl2A&_nc_oc=Admh2kOlh5nIoy80tUADxGf8zubzoAR6UL13HvzpJq-Y-dgsk7MuB6kmEJt1K5qUuOY&_nc_zt=23&_nc_ht=scontent.fbwa1-1.fna&_nc_gid=JYHbBqdHIewBanx7O68ylw&oh=00_AfdSVA0SFZUsp9_r0oSkBAyXoy6lYU3-bBDZyE95ocko0Q&oe=68F19427"
+        ),
+        FeedItem(
+            "Arghakhanchi",
+            "https://www.arghakhanchi.com/feed/",
+            "https://yt3.ggpht.com/a/AATXAJymv7RvidhvQAQ6_xhJvki8iLZNtNihY_QUnQ=s900-c-k-c0xffffffff-no-rj-mo"
+        ), FeedItem(
+            "HamroKhelkud",
+            "https://www.hamrokhelkud.com/feed",
+            "https://www.hamrokhelkud.com/wp-content/uploads/2023/08/Branding-1-1-1-3.png"
+        ), FeedItem(
+            "Pariwartan Khabar",
+            "https://www.pariwartankhabar.com/feed/",
+            "https://www.pariwartankhabar.com/wp-content/themes/pariwartankhabar/img/logo2.png"
+        ), FeedItem(
+            "Ejanakpurtoday",
+            "https://ejanakpurtoday.com/feed/",
+            "https://ejanakpurtoday.com/wp-content/uploads/2021/10/cropped-logo_janakpurtoday-e1633643290527.png"
+        ), FeedItem(
+            "himalini",
+            "https://www.himalini.com/feed/",
+            "https://i1.wp.com/himalini.com/en/wp-content/uploads/2019/04/Himalini-logo-2-_.png?fit=221%2C210&ssl=1"
+        ), FeedItem(
+            "Nepaliheadlines",
+            "https://nepaliheadlines.com/feed/",
+            "https://nepaliheadlines.com/wp-content/uploads/2016/09/NH-logo.png"
+        ), FeedItem(
+            "Khasokhas",
+            "https://www.khasokhas.com/feed",
+            "https://www.khasokhas.com/wp-content/themes/khasokhas/img/logo.png"
+        ), FeedItem(
+            "Ukaalo",
+            "https://www.ukaalo.com/rss/",
+            "https://www.ukaalo.com/media/logo/Logo_ukalo1_ZyylU6I_1_ygea1iA_E6qwgMF.png"
+        ), FeedItem(
+            "Shikhar News",
+            "https://shikharnews.com/feed",
+            "https://ddxcu89oqzgqh.cloudfront.net/uploads/media/image/5c56d83857ba7858950086c4/shikhar-news-fb-share.jpg"
         )
     )
 }

@@ -13,7 +13,6 @@ interface NewsDao {
     @Query("SELECT * FROM news_items")
     fun getAllNewsItems(): Flow<List<NewsItem>>
 
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(newsItems: List<NewsItem>)
 
